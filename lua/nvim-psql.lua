@@ -26,16 +26,16 @@ end
 
 function M.query()
   vim.cmd.wa()
-  exec(string.format(
+  stdout = exec(string.format(
     "psql -d '%s' -f '%s' -o '%s'",
     M.postgres_dsn, M.query_file_path, M.output_file_path
   ))
-
   exec(string.format(
     "cat %s >> %s",
     M.query_file_path, M.history_file_path
   ))
   vim.cmd.bufdo('e')
+  print(stdout)
 end
 
 function M.history()
