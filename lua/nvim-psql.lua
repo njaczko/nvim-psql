@@ -7,7 +7,7 @@ function exec(cmd)
 end
 
 function M.init(dsn)
-  if (dsn == nil or dsn == '') then error("Postgres DSN is required") end
+  -- if (dsn == nil or dsn == '') then error("Postgres DSN is required") end
 
   local nvim_psql_dir = os.getenv('HOME') .. '/.nvim-psql/'
   if vim.fn.isdirectory(nvim_psql_dir) == 0 then
@@ -27,8 +27,10 @@ end
 function M.query()
   vim.cmd.wa()
   stdout = exec(string.format(
-    "psql -d '%s' -f '%s' -o '%s'",
-    M.postgres_dsn, M.query_file_path, M.output_file_path
+  -- bq query --max_rows=100000 --nouse_legacy_sql "$(cat bq.sql)"
+    "bq query --max_rows=100000 --nouse_legacy_sql \"$(cat %s)\" > %s",
+    M.query_file_path, M.output_file_path
+    -- M.postgres_dsn, M.query_file_path, M.output_file_path
   ))
   exec(string.format(
     "cat %s >> %s",
