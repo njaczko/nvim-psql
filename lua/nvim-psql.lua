@@ -25,7 +25,7 @@ function M.initPSQL(dsn)
 end
 
 function M.initBigQuery()
-  local nvim_psql_dir = os.getenv('HOME') .. '/.nvim-psql/'
+  local nvim_psql_dir = os.getenv('HOME') .. '/.nvim-psql-bigquery/'
   if vim.fn.isdirectory(nvim_psql_dir) == 0 then
     vim.fn.mkdir(nvim_psql_dir)
   end
